@@ -210,16 +210,9 @@ class ezcGraphToolsTest extends ezcGraphTestCase
         $chart->data['Line 1'] = new ezcGraphArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 120, 'sample 5' => 1) );
         $chart->render( 500, 200, $filename );
 
-        try
-        {
-            ezcGraphTools::createImageMap( $chart );
-        }
-        catch ( ezcGraphToolsIncompatibleDriverException $e )
-        {
-            return true;
-        }
+        $this->expectException(ezcGraphToolsIncompatibleDriverException::class);
 
-        $this->fail( 'Expected ezcGraphToolsIncompatibleDriverException.' );
+        ezcGraphTools::createImageMap( $chart );
     }
 
     public function testImageMapWithoutRendering()
@@ -230,16 +223,9 @@ class ezcGraphToolsTest extends ezcGraphTestCase
         $chart->data['Line 1'] = new ezcGraphArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 120, 'sample 5' => 1) );
         $chart->driver = new ezcGraphGdDriver();
 
-        try
-        {
-            ezcGraphTools::createImageMap( $chart );
-        }
-        catch ( ezcGraphToolsNotRenderedException $e )
-        {
-            return true;
-        }
+        $this->expectException(ezcGraphToolsNotRenderedException::class);
 
-        $this->fail( 'Expected ezcGraphToolsNotRenderedException.' );
+        ezcGraphTools::createImageMap( $chart );
     }
 
     public function testPieChartSvgLinking()
@@ -415,16 +401,9 @@ class ezcGraphToolsTest extends ezcGraphTestCase
         $chart->driver = new ezcGraphGdDriver();
         $chart->options->font->path = $this->basePath . 'font.ttf';
 
-        try
-        {
-            ezcGraphTools::linkSvgElements( $chart );
-        }
-        catch ( ezcGraphToolsIncompatibleDriverException $e )
-        {
-            return true;
-        }
+        $this->expectException(ezcGraphToolsIncompatibleDriverException::class);
 
-        $this->fail( 'Expected ezcGraphToolsIncompatibleDriverException.' );
+        ezcGraphTools::linkSvgElements( $chart );
     }
 
     public function testSvgLinkingWithoutRendering()
@@ -434,16 +413,9 @@ class ezcGraphToolsTest extends ezcGraphTestCase
         $chart = new ezcGraphLineChart();
         $chart->data['Line 1'] = new ezcGraphArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 120, 'sample 5' => 1) );
 
-        try
-        {
-            ezcGraphTools::linkSvgElements( $chart );
-        }
-        catch ( ezcGraphToolsNotRenderedException $e )
-        {
-            return true;
-        }
+        $this->expectException(ezcGraphToolsNotRenderedException::class);
 
-        $this->fail( 'Expected ezcGraphToolsNotRenderedException.' );
+        ezcGraphTools::linkSvgElements( $chart );
     }
 }
 

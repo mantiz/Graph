@@ -72,32 +72,18 @@ class ezcGraphDriverOptionsTest extends ezcTestImageCase
     {
         $driver = new ezcGraphSvgDriver();
 
-        try
-        {
-            $driver->unknownProperty = false;
-        }
-        catch ( ezcBasePropertyNotFoundException $e )
-        {
-            return true;
-        }
+        $this->expectException(ezcBasePropertyNotFoundException::class);
 
-        $this->fail( 'Expected ezcBasePropertyNotFoundException.' );
+        $driver->unknownProperty = false;
     }
 
     public function testDriverGetUnknownProperty()
     {
         $driver = new ezcGraphSvgDriver();
 
-        try
-        {
-            $driver->unknownProperty;
-        }
-        catch ( ezcBasePropertyNotFoundException $e )
-        {
-            return true;
-        }
+        $this->expectException(ezcBasePropertyNotFoundException::class);
 
-        $this->fail( 'Expected ezcBasePropertyNotFoundException.' );
+        $driver->unknownProperty;
     }
 
     public function testDriverOptionsPropertyWidth()
@@ -299,16 +285,9 @@ class ezcGraphDriverOptionsTest extends ezcTestImageCase
     {
         $options = new ezcGraphSvgDriverOptions();
 
-        try
-        {
-            $options->unknown = 42;
-        }
-        catch ( ezcBasePropertyNotFoundException $e )
-        {
-            return true;
-        }
+        $this->expectException(ezcBasePropertyNotFoundException::class);
 
-        $this->fail( 'Expected ezcBasePropertyNotFoundException.' );
+        $options->unknown = 42;
     }
 }
 ?>

@@ -87,32 +87,18 @@ class ezcGraphStructTest extends ezcTestCase
     {
         $context = new ezcGraphContext( 'set', 'point' );
 
-        try
-        {
-            $context->unknown = 42;
-        }
-        catch ( ezcBasePropertyNotFoundException $e )
-        {
-            return true;
-        }
+        $this->expectException(ezcBasePropertyNotFoundException::class);
 
-        $this->fail( 'Expected ezcBasePropertyNotFoundException.' );
+        $context->unknown = 42;
     }
 
     public function testContextUnknowPropertyGet()
     {
         $context = new ezcGraphContext( 'set', 'point' );
 
-        try
-        {
-            $context->unknown;
-        }
-        catch ( ezcBasePropertyNotFoundException $e )
-        {
-            return true;
-        }
+        $this->expectException(ezcBasePropertyNotFoundException::class);
 
-        $this->fail( 'Expected ezcBasePropertyNotFoundException.' );
+        $context->unknown;
     }
 
     public function testContextSetState()
@@ -204,32 +190,18 @@ class ezcGraphStructTest extends ezcTestCase
     {
         $context = new ezcGraphCoordinate( 23, 42 );
 
-        try
-        {
-            $context->unknown = 42;
-        }
-        catch ( ezcBasePropertyNotFoundException $e )
-        {
-            return true;
-        }
+        $this->expectException(ezcBasePropertyNotFoundException::class);
 
-        $this->fail( 'Expected ezcBasePropertyNotFoundException.' );
+        $context->unknown = 42;
     }
 
     public function testCoordinateUnknowPropertyGet()
     {
         $context = new ezcGraphCoordinate( 23, 42 );
 
-        try
-        {
-            $context->unknown;
-        }
-        catch ( ezcBasePropertyNotFoundException $e )
-        {
-            return true;
-        }
+        $this->expectException(ezcBasePropertyNotFoundException::class);
 
-        $this->fail( 'Expected ezcBasePropertyNotFoundException.' );
+        $context->unknown;
     }
 
     public function testCoordinateSetState()

@@ -71,19 +71,12 @@ class ezcGraphPaletteTest extends ezcTestCase
 
     public function testInvalidPalette()
     {
-        try
-        {
-            $chart = new ezcGraphLineChart();
-            // Silenced, because this throws an E_WARNING in devel mode,
-            // caused by the non existing class ezcGraphPaletteUndefined
-            @$chart->palette = 'Undefined';
-        }
-        catch ( ezcBaseValueException $e )
-        {
-            return true;
-        }
+        $this->expectException(ezcBaseValueException::class);
 
-        $this->fail( 'Expected ezcGraphUnknownPaletteException.' );
+        $chart = new ezcGraphLineChart();
+        // Silenced, because this throws an E_WARNING in devel mode,
+        // caused by the non existing class ezcGraphPaletteUndefined
+        @$chart->palette = 'Undefined';
     }
 
     public function testChartBackgroundColor()

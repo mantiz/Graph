@@ -104,32 +104,18 @@ class ezcGraphMatrixTest extends ezcTestCase
     {
         $matrix = new ezcGraphMatrix( );
 
-        try
-        {
-            $matrix->set( 1, 32, .45 );
-        }
-        catch ( ezcGraphMatrixOutOfBoundingsException $e )
-        {
-            return true;
-        }
+        $this->expectException(ezcGraphMatrixOutOfBoundingsException::class);
 
-        $this->fail( 'Expected ezcGraphMatrixOutOfBoundingsException.' );
+        $matrix->set( 1, 32, .45 );
     }
 
     public function testGetInvalidMatrixValue()
     {
         $matrix = new ezcGraphMatrix( );
 
-        try
-        {
-            $matrix->get( 1, 32 );
-        }
-        catch ( ezcGraphMatrixOutOfBoundingsException $e )
-        {
-            return true;
-        }
+        $this->expectException(ezcGraphMatrixOutOfBoundingsException::class);
 
-        $this->fail( 'Expected ezcGraphMatrixOutOfBoundingsException.' );
+        $matrix->get( 1, 32 );
     }
 
     public function testAddMatrices()
@@ -166,48 +152,27 @@ class ezcGraphMatrixTest extends ezcTestCase
     {
         $matrix = new ezcGraphMatrix();
 
-        try
-        {
-            $matrix->diff( new ezcGraphMatrix( 2, 4 ) );
-        }
-        catch (  ezcGraphMatrixInvalidDimensionsException $e )
-        {
-            return true;
-        }
+        $this->expectException(ezcGraphMatrixInvalidDimensionsException::class);
 
-        $this->fail( 'Expected ezcGraphMatrixInvalidDimensionsException.' );
+        $matrix->diff( new ezcGraphMatrix( 2, 4 ) );
     }
 
     public function testAddIncompatibleMatrices()
     {
         $matrix = new ezcGraphMatrix();
 
-        try
-        {
-            $matrix->add( new ezcGraphMatrix( 4, 4 ) );
-        }
-        catch ( ezcGraphMatrixInvalidDimensionsException $e )
-        {
-            return true;
-        }
+        $this->expectException(ezcGraphMatrixInvalidDimensionsException::class);
 
-        $this->fail( 'Expected ezcGraphMatrixInvalidDimensionsException.' );
+        $matrix->add( new ezcGraphMatrix( 4, 4 ) );
     }
 
     public function testDiffIncompatibleMatrices()
     {
         $matrix = new ezcGraphMatrix();
 
-        try
-        {
-            $matrix->add( new ezcGraphMatrix( 4, 4 ) );
-        }
-        catch ( ezcGraphMatrixInvalidDimensionsException $e )
-        {
-            return true;
-        }
+        $this->expectException(ezcGraphMatrixInvalidDimensionsException::class);
 
-        $this->fail( 'Expected ezcGraphMatrixInvalidDimensionsException.' );
+        $matrix->add( new ezcGraphMatrix( 4, 4 ) );
     }
 
     public function testScalarMultiplication()
@@ -260,16 +225,9 @@ class ezcGraphMatrixTest extends ezcTestCase
             array( 4, 5, 6 ),
         ) );
 
-        try
-        {
-            $a->multiply( $b );
-        }
-        catch ( ezcGraphMatrixInvalidDimensionsException $e )
-        {
-            return true;
-        }
+        $this->expectException(ezcGraphMatrixInvalidDimensionsException::class);
 
-        $this->fail( 'Expected ezcGraphMatrixInvalidDimensionsException.' );
+        $a->multiply( $b );
     }
 
     public function testMatrixMultiplicationInvalidDimensions2()
@@ -284,16 +242,9 @@ class ezcGraphMatrixTest extends ezcTestCase
             array( 4, 5, 6 ),
         ) );
 
-        try
-        {
-            $a->multiply( $b );
-        }
-        catch ( ezcGraphMatrixInvalidDimensionsException $e )
-        {
-            return true;
-        }
+        $this->expectException(ezcGraphMatrixInvalidDimensionsException::class);
 
-        $this->fail( 'Expected ezcGraphMatrixInvalidDimensionsException.' );
+        $a->multiply( $b );
     }
 
     public function testTransposeMatrix()

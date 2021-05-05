@@ -192,16 +192,9 @@ class ezcGraphFontTest extends ezcGraphTestCase
     {
         $chart = new ezcGraphLineChart();
 
-        try
-        {
-            $chart->options->font->path = $this->basePath . 'ez.png';
-        }
-        catch ( ezcGraphUnknownFontTypeException $e )
-        {
-            return true;
-        }
+        $this->expectException(ezcGraphUnknownFontTypeException::class);
 
-        $this->fail( 'Expected ezcGraphUnknownFontTypeException.' );
+        $chart->options->font->path = $this->basePath . 'ez.png';
     }
 
     public function testFontOptionsPropertyName()
@@ -698,16 +691,9 @@ class ezcGraphFontTest extends ezcGraphTestCase
     {
         $options = new ezcGraphFontOptions();
 
-        try
-        {
-            $options->unknown = 42;
-        }
-        catch ( ezcBasePropertyNotFoundException $e )
-        {
-            return true;
-        }
+        $this->expectException(ezcBasePropertyNotFoundException::class);
 
-        $this->fail( 'Expected ezcBasePropertyNotFoundException.' );
+        $options->unknown = 42;
     }
 
     public function testUTF8SpecialCharsSVG()

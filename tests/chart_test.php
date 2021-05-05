@@ -85,17 +85,10 @@ class ezcGraphChartTest extends ezcGraphTestCase
 
     public function testSetOptionsUnknown()
     {
-        try
-        {
-            $pieChart = new ezcGraphPieChart();
-            $pieChart->options->unknown = 'unknown';
-        }
-        catch ( ezcBasePropertyNotFoundException $e )
-        {
-            return true;
-        }
+        $this->expectException(ezcBasePropertyNotFoundException::class);
 
-        $this->fail( 'Expected ezcBasePropertyNotFoundException' );
+        $pieChart = new ezcGraphPieChart();
+        $pieChart->options->unknown = 'unknown';
     }
 
     public function testSetRenderer()
@@ -111,33 +104,19 @@ class ezcGraphChartTest extends ezcGraphTestCase
 
     public function testSetInvalidRenderer()
     {
-        try
-        {
-            $pieChart = new ezcGraphPieChart();
-            $pieChart->renderer = 'invalid';
-        }
-        catch ( ezcBaseValueException $e )
-        {
-            return true;
-        }
+        $this->expectException(ezcBaseValueException::class);
 
-        $this->fail( 'Expected ezcBaseValueException' );
+        $pieChart = new ezcGraphPieChart();
+        $pieChart->renderer = 'invalid';
     }
 
     public function testAccessUnknownElement()
     {
-        try
-        {
-            $pieChart = new ezcGraphPieChart();
-            //Read
-            $pieChart->unknownElement;
-        }
-        catch ( ezcGraphNoSuchElementException $e )
-        {
-            return true;
-        }
+        $this->expectException(ezcGraphNoSuchElementException::class);
 
-        $this->fail( 'Expected ezcGraphNoSuchElementException' );
+        $pieChart = new ezcGraphPieChart();
+        //Read
+        $pieChart->unknownElement;
     }
 
     public function testSetDriver()
@@ -159,47 +138,26 @@ class ezcGraphChartTest extends ezcGraphTestCase
 
     public function testSetInvalidDriver()
     {
-        try
-        {
-            $pieChart = new ezcGraphPieChart();
-            $pieChart->driver = 'invalid';
-        }
-        catch ( ezcBaseValueException $e )
-        {
-            return true;
-        }
+        $this->expectException(ezcBaseValueException::class);
 
-        $this->fail( 'Expected ezcGraphInvalidDriverException' );
+        $pieChart = new ezcGraphPieChart();
+        $pieChart->driver = 'invalid';
     }
 
     public function testPieChartWithoutData()
     {
-        try
-        {
-            $pieChart = new ezcGraphPieChart();
-            $pieChart->render( 400, 200 );
-        }
-        catch ( ezcGraphNoDataException $e )
-        {
-            return true;
-        }
+        $this->expectException(ezcGraphNoDataException::class);
 
-        $this->fail( 'Expected ezcGraphNoDataException.' );
+        $pieChart = new ezcGraphPieChart();
+        $pieChart->render( 400, 200 );
     }
 
     public function testBarChartWithoutData()
     {
-        try
-        {
-            $barChart = new ezcGraphBarChart();
-            $barChart->render( 400, 200 );
-        }
-        catch ( ezcGraphNoDataException $e )
-        {
-            return true;
-        }
+        $this->expectException(ezcGraphNoDataException::class);
 
-        $this->fail( 'Expected ezcGraphNoDataException.' );
+        $barChart = new ezcGraphBarChart();
+        $barChart->render( 400, 200 );
     }
 
     public function testBarChartWithSingleDataPoint()

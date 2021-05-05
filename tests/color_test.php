@@ -236,17 +236,10 @@ class ezcGraphColorTest extends ezcTestCase
 
     public function testColorPropertyNotFoundException()
     {
-        try
-        {
-            $color = ezcGraphColor::create( array( .02, .092, .165 ) );
-            $color->black = 23;
-        }
-        catch ( ezcBasePropertyNotFoundException $e )
-        {
-            return true;
-        }
+        $this->expectException(ezcBasePropertyNotFoundException::class);
 
-        $this->fail( 'Expected ezcBasePropertyNotFoundException.' );
+        $color = ezcGraphColor::create( array( .02, .092, .165 ) );
+        $color->black = 23;
     }
 
     public function testLinearGradientPropertyNotFoundException()
@@ -258,14 +251,9 @@ class ezcGraphColorTest extends ezcTestCase
             ezcGraphColor::fromHex( '#000000' )
         );
 
-        try
-        {
-            $color->black;
-        }
-        catch ( ezcBasePropertyNotFoundException $e )
-        {
-            return true;
-        }
+        $this->expectException(ezcBasePropertyNotFoundException::class);
+
+        $color->black;
     }
 
     public function testLinearGradientPropertyStartPoint()
@@ -390,14 +378,9 @@ class ezcGraphColorTest extends ezcTestCase
             ezcGraphColor::fromHex( '#000000' )
         );
 
-        try
-        {
-            $color->black;
-        }
-        catch ( ezcBasePropertyNotFoundException $e )
-        {
-            return true;
-        }
+        $this->expectException(ezcBasePropertyNotFoundException::class);
+
+        $color->black;
     }
 
     public function testRadialGradientProperties()
@@ -596,16 +579,9 @@ class ezcGraphColorTest extends ezcTestCase
 
     public function testFactoryUnknownColorDefinition()
     {
-        try
-        {
-            $color = ezcGraphColor::create( 1337 );
-        }
-        catch ( ezcGraphUnknownColorDefinitionException $e )
-        {
-            return true;
-        }
+        $this->expectException(ezcGraphUnknownColorDefinitionException::class);
 
-        $this->fail( 'Expected ezcGraphUnknownColorDefinitionException' );
+        $color = ezcGraphColor::create( 1337 );
     }
 
     public function testInvertBlack()

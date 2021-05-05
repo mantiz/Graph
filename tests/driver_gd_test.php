@@ -169,17 +169,10 @@ class ezcGraphGdDriverTest extends ezcTestImageCase
             ezcGraphColor::fromHex( '#3465A4' )
         );
 
-        try
-        {
-            $filename = $this->tempDir . __FUNCTION__ . '.jpeg';
-            $this->driver->render( $filename );
-        }
-        catch ( ezcGraphGdDriverUnsupportedImageTypeException $e )
-        {
-            return;
-        }
+        $this->expectException(ezcGraphGdDriverUnsupportedImageTypeException::class);
 
-        $this->fail( 'Expected ezcGraphGdDriverUnsupportedImageTypeException.' );
+        $filename = $this->tempDir . __FUNCTION__ . '.jpeg';
+        $this->driver->render( $filename );
     }
 
     public function testDrawLine()
@@ -2086,24 +2079,17 @@ class ezcGraphGdDriverTest extends ezcTestImageCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.png';
 
-        try
-        {
-            $this->driver->drawTextBox(
-                'This is very long text which is not supposed to fit in the bounding box.',
-                new ezcGraphCoordinate( 10, 10 ),
-                1,
-                20,
-                ezcGraph::LEFT
-            );
+        $this->expectException(ezcGraphFontRenderingException::class);
 
-            $this->driver->render( $filename );
-        }
-        catch ( ezcGraphFontRenderingException $e )
-        {
-            return true;
-        }
+        $this->driver->drawTextBox(
+            'This is very long text which is not supposed to fit in the bounding box.',
+            new ezcGraphCoordinate( 10, 10 ),
+            1,
+            20,
+            ezcGraph::LEFT
+        );
 
-        $this->fail( 'Expected ezcGraphFontRenderingException.' );
+        $this->driver->render( $filename );
     }
 
     public function testDrawTextWithTextShadow()

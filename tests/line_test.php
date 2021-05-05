@@ -308,16 +308,9 @@ class ezcGraphLineChartTest extends ezcGraphTestCase
         $chart->data['sampleData'] = new ezcGraphArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 120, 'sample 5' => 1 ) );
         $chart->data['sampleData']->displayType = ezcGraph::PIE;
 
-        try 
-        {
-            $chart->render( 500, 200 );
-        }
-        catch ( ezcGraphInvalidDisplayTypeException $e )
-        {
-            return true;
-        }
+        $this->expectException(ezcGraphInvalidDisplayTypeException::class);
 
-        $this->fail( 'Expected ezcGraphInvalidDisplayTypeException.' );
+        $chart->render( 500, 200 );
     }
 
     public function testRenderChartLines()
@@ -844,16 +837,9 @@ class ezcGraphLineChartTest extends ezcGraphTestCase
 
         $chart->legend = false;
 
-        try
-        {
-            $chart->legend = 12;
-        }
-        catch ( ezcBaseValueException $e )
-        {
-            return true;
-        }
+        $this->expectException(ezcBaseValueException::class);
 
-        $this->fail( 'Expected ezcBaseValueException.' );
+        $chart->legend = 12;
     }
     
     public function testLineChartNoDataFailure()
@@ -863,16 +849,9 @@ class ezcGraphLineChartTest extends ezcGraphTestCase
         $chart = new ezcGraphLineChart();
         $chart->palette = new ezcGraphPaletteTango();
 
-        try
-        {
-            $chart->render( 500, 200, $filename );
-        }
-        catch ( ezcGraphNoDataException $e )
-        {
-            return true;
-        }
+        $this->expectException(ezcGraphNoDataException::class);
 
-        $this->fail( 'Expected ezcGraphNoDataException.' );
+        $chart->render( 500, 200, $filename );
     }
 
     public function testLineChartHighlightValue()

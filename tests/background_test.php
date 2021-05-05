@@ -66,32 +66,18 @@ class ezcGraphBackgroundTest extends ezcGraphTestCase
 
     public function testSetOptionsInvalidBackgroundImage()
     {
-        try 
-        {
-            $pieChart = new ezcGraphPieChart();
-            $pieChart->background->image = $this->basePath . $this->testFiles['invalid'];
-        } 
-        catch ( ezcGraphInvalidImageFileException $e ) 
-        {
-            return true;
-        } 
+        $this->expectException(ezcGraphInvalidImageFileException::class);
 
-        $this->fail( 'Expected ezcGraphInvalidImageFileException' );
+        $pieChart = new ezcGraphPieChart();
+        $pieChart->background->image = $this->basePath . $this->testFiles['invalid'];
     }
 
     public function testSetOptionsNonexistantBackgroundImage()
     {
-        try 
-        {
-            $pieChart = new ezcGraphPieChart();
-            $pieChart->background->image = $this->basePath . $this->testFiles['nonexistant'];
-        } 
-        catch ( ezcBaseFileNotFoundException $e ) 
-        {
-            return true;
-        } 
+        $this->expectException(ezcBaseFileNotFoundException::class);
 
-        $this->fail( 'Expected ezcBaseFileNotFoundException' );
+        $pieChart = new ezcGraphPieChart();
+        $pieChart->background->image = $this->basePath . $this->testFiles['nonexistant'];
     }
 
     public function testSetOptionsBackground()

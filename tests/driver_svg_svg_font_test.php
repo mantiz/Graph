@@ -635,16 +635,9 @@ class ezcGraphSvgSvgFontDriverTest extends ezcGraphTestCase
         $chart->driver->options->templateDocument = dirname( __FILE__ ) . '/data/template.svg';
         $chart->driver->options->insertIntoGroup = 'not_existing_group';
 
-        try
-        {
-            $chart->render( 500, 300 );
-        }
-        catch ( ezcGraphSvgDriverInvalidIdException $e )
-        {
-            return;
-        }
+        $this->expectException(ezcGraphSvgDriverInvalidIdException::class);
 
-        $this->fail( 'Expected ezcGraphSvgDriverInvalidIdException.' );
+        $chart->render( 500, 300 );
     }
 
     public function testDrawChartWithCustomPrefix()

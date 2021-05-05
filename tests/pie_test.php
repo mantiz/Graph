@@ -230,16 +230,9 @@ class ezcGraphPieChartTest extends ezcGraphTestCase
         $chart->data['sampleData'] = new ezcGraphArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 120, 'sample 5' => 1 ) );
         $chart->data['sampleData']->displayType = ezcGraph::LINE;
 
-        try 
-        {
-            $chart->render( 500, 200 );
-        }
-        catch ( ezcGraphInvalidDisplayTypeException $e )
-        {
-            return true;
-        }
+        $this->expectException(ezcGraphInvalidDisplayTypeException::class);
 
-        $this->fail( 'Expected ezcGraphInvalidDisplayTypeException.' );
+        $chart->render( 500, 200 );
     }
 
     public function testPieRenderPieSegments()
@@ -414,50 +407,29 @@ class ezcGraphPieChartTest extends ezcGraphTestCase
 
     public function testInvalidValues()
     {
-        try
-        {
-            $chart = new ezcGraphPieChart();
-            $chart->data['Skien'] = new ezcGraphArrayDataSet( array( 3, -1, 2 ) );
-            $chart->render( 500, 200 );
-        }
-        catch ( ezcGraphInvalidDataException $e )
-        {
-            return true;
-        }
+        $this->expectException(ezcGraphInvalidDataException::class);
 
-        $this->fail( 'Expected ezcGraphInvalidDataException.' );
+        $chart = new ezcGraphPieChart();
+        $chart->data['Skien'] = new ezcGraphArrayDataSet( array( 3, -1, 2 ) );
+        $chart->render( 500, 200 );
     }
 
     public function testInvalidValueSum()
     {
-        try
-        {
-            $chart = new ezcGraphPieChart();
-            $chart->data['Skien'] = new ezcGraphArrayDataSet( array( 0, 0 ) );
-            $chart->render( 500, 200 );
-        }
-        catch ( ezcGraphInvalidDataException $e )
-        {
-            return true;
-        }
+        $this->expectException(ezcGraphInvalidDataException::class);
 
-        $this->fail( 'Expected ezcGraphInvalidDataException.' );
+        $chart = new ezcGraphPieChart();
+        $chart->data['Skien'] = new ezcGraphArrayDataSet( array( 0, 0 ) );
+        $chart->render( 500, 200 );
     }
 
     public function testEmptyDataSet()
     {
-        try
-        {
-            $chart = new ezcGraphPieChart();
-            $chart->data['Skien'] = new ezcGraphArrayDataSet( array() );
-            $chart->render( 500, 200 );
-        } 
-        catch ( ezcGraphInvalidDataException $e )
-        {
-            return true;
-        }
+        $this->expectException(ezcGraphInvalidDataException::class);
 
-        $this->fail( 'Expected ezcGraphInvalidDataException.' );
+        $chart = new ezcGraphPieChart();
+        $chart->data['Skien'] = new ezcGraphArrayDataSet( array() );
+        $chart->render( 500, 200 );
     }
 
     public function testRenderSmallPieChart()

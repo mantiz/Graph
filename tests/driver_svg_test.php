@@ -1361,16 +1361,9 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
         $chart->driver->options->templateDocument = dirname( __FILE__ ) . '/data/template.svg';
         $chart->driver->options->insertIntoGroup = 'not_existing_group';
 
-        try
-        {
-            $chart->render( 500, 300 );
-        }
-        catch ( ezcGraphSvgDriverInvalidIdException $e )
-        {
-            return;
-        }
+        $this->expectException(ezcGraphSvgDriverInvalidIdException::class);
 
-        $this->fail( 'Expected ezcGraphSvgDriverInvalidIdException.' );
+        $chart->render( 500, 300 );
     }
 
     public function testDrawChartWithCustomPrefix()
@@ -1990,24 +1983,17 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
-        try
-        {
-            $this->driver->drawTextBox(
-                'Test string',
-                new ezcGraphCoordinate( 10, 10 ),
-                1,
-                6,
-                ezcGraph::LEFT
-            );
+        $this->expectException(ezcGraphFontRenderingException::class);
 
-            $this->driver->render( $filename );
-        }
-        catch ( ezcGraphFontRenderingException $e )
-        {
-            return true;
-        }
+        $this->driver->drawTextBox(
+            'Test string',
+            new ezcGraphCoordinate( 10, 10 ),
+            1,
+            6,
+            ezcGraph::LEFT
+        );
 
-        $this->fail( 'Expected ezcGraphFontRenderingException.' );
+        $this->driver->render( $filename );
     }
 
     public function testShortenSingleChar()

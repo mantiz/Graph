@@ -1126,16 +1126,9 @@ class ezcGraphRenderer3dTest extends ezcGraphTestCase
 
         $chart->renderer = new ezcGraphRenderer3d();
 
-        try
-        {
-            $chart->render( 500, 200, $filename );
-        }
-        catch ( ezcGraphUnregularStepsException $e )
-        {
-            return true;
-        }
+        $this->expectException(ezcGraphUnregularStepsException::class);
 
-        $this->fail( 'Expected ezcGraphUnregularStepsException.' );
+        $chart->render( 500, 200, $filename );
     }
 
     public function testRender3dFilledLineChartWithAxisIntersection()

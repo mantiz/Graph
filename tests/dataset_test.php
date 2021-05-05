@@ -114,18 +114,11 @@ class ezcGraphDataSetTest extends ezcTestCase
 
     public function testCreateMultiplePiechartDataSetsFromArray()
     {
-        try 
-        {
-            $chart = new ezcGraphPieChart();
-            $chart->data['income'] = new ezcGraphArrayDataSet( array( 2000 => 2345.2, 2456.3, 2567.4 ) );
-            $chart->data['spending'] = new ezcGraphArrayDataSet( array( 2000 => 2347.2, 2458.3, 2569.4 ) );
-        }
-        catch ( ezcGraphTooManyDataSetsExceptions $e )
-        {
-            return true;
-        }
+        $this->expectException(ezcGraphTooManyDataSetsExceptions::class);
 
-        $this->fail( 'Expected ezcGraphTooManyDataSetsExceptions.' );
+        $chart = new ezcGraphPieChart();
+        $chart->data['income'] = new ezcGraphArrayDataSet( array( 2000 => 2345.2, 2456.3, 2567.4 ) );
+        $chart->data['spending'] = new ezcGraphArrayDataSet( array( 2000 => 2347.2, 2458.3, 2569.4 ) );
     }
 
     public function testDataSetLabel()
@@ -280,18 +273,11 @@ class ezcGraphDataSetTest extends ezcTestCase
 
     public function testDataSetSetNonexistingSingle()
     {
-        try
-        {
-            $chart = new ezcGraphPieChart();
-            $chart->data['income'] = new ezcGraphArrayDataSet( array( 2000 => 2345.2, 2456.3, 2567.4 ) );
-            $chart->data['income']->symbol[2006] = ezcGraph::DIAMOND;
-        }
-        catch ( ezcGraphNoSuchDataException $e )
-        {
-            return true;
-        }
+        $this->expectException(ezcGraphNoSuchDataException::class);
 
-        $this->fail( 'Expected ezcGraphNoSuchDataException.' );
+        $chart = new ezcGraphPieChart();
+        $chart->data['income'] = new ezcGraphArrayDataSet( array( 2000 => 2345.2, 2456.3, 2567.4 ) );
+        $chart->data['income']->symbol[2006] = ezcGraph::DIAMOND;
     }
 
     public function testDataSetGetSingleData()
@@ -342,16 +328,10 @@ class ezcGraphDataSetTest extends ezcTestCase
     public function testDataSetInvalidDataSource()
     {
         $chart = new ezcGraphPieChart();
-        try
-        {
-            $chart->data['income'] = new ezcGraphArrayDataSet( $chart );
-        }
-        catch ( ezcGraphInvalidArrayDataSourceException $e )
-        {
-            return true;
-        }
 
-        $this->fail( 'Expected ezcGraphInvalidArrayDataSourceException.' );
+        $this->expectException(ezcGraphInvalidArrayDataSourceException::class);
+
+        $chart->data['income'] = new ezcGraphArrayDataSet( $chart );
     }
 
     public function testDataSetOffsetExists()
@@ -375,32 +355,18 @@ class ezcGraphDataSetTest extends ezcTestCase
         $chart = new ezcGraphPieChart();
         $chart->data['income'] = new ezcGraphArrayDataSet( array( 2000 => 2345.2, 2456.3, 2567.4 ) );
 
-        try
-        {
-            $chart->data['non existant'];
-        }
-        catch ( ezcGraphNoSuchDataSetException $e )
-        {
-            return true;
-        }
+        $this->expectException(ezcGraphNoSuchDataSetException::class);
 
-        $this->fail( 'Expected ezcGraphNoSuchDataSetException.' );
+        $chart->data['non existant'];
     }
 
     public function testDataSetOffsetSetFailure()
     {
         $chart = new ezcGraphPieChart();
 
-        try
-        {
-            $chart->data['income'] = true;
-        }
-        catch ( ezcBaseValueException $e )
-        {
-            return true;
-        }
+        $this->expectException(ezcBaseValueException::class);
 
-        $this->fail( 'Expected ezcBaseValueException.' );
+        $chart->data['income'] = true;
     }
 
     public function testDataSetOffsetUnset()
@@ -428,16 +394,9 @@ class ezcGraphDataSetTest extends ezcTestCase
         $chart = new ezcGraphPieChart();
         $chart->data['income'] = new ezcGraphArrayDataSet( array( 2000 => 2345.2, 2456.3, 2567.4 ) );
 
-        try
-        {
-            unset( $chart->data['non existant'] );
-        }
-        catch ( ezcGraphNoSuchDataSetException $e )
-        {
-            return true;
-        }
+        $this->expectException(ezcGraphNoSuchDataSetException::class);
 
-        $this->fail( 'Expected ezcGraphNoSuchDataSetException.' );
+        unset( $chart->data['non existant'] );
     }
 
     public function testDataSetPropertyOffsetExists()
@@ -463,16 +422,9 @@ class ezcGraphDataSetTest extends ezcTestCase
         $chart->data['income'] = new ezcGraphArrayDataSet( array( 2000 => 2345.2, 2456.3, 2567.4 ) );
         $chart->data['income']->highlight[2000] = true;
 
-        try
-        {
-            $chart->data['income']->highlight[42];
-        }
-        catch ( ezcGraphNoSuchDataException $e )
-        {
-            return true;
-        }
+        $this->expectException(ezcGraphNoSuchDataException::class);
 
-        $this->fail( 'Expected ezcGraphNoSuchDataException.' );
+        $chart->data['income']->highlight[42];
     }
 
     public function testDataSetPropertyOffsetUnset()
@@ -502,16 +454,9 @@ class ezcGraphDataSetTest extends ezcTestCase
         $chart->data['income'] = new ezcGraphArrayDataSet( array( 2000 => 2345.2, 2456.3, 2567.4 ) );
         $chart->data['income']->highlight[2000] = true;
 
-        try
-        {
-            unset( $chart->data['income']->highlight[42] );
-        }
-        catch ( ezcGraphNoSuchDataException $e )
-        {
-            return true;
-        }
+        $this->expectException(ezcGraphNoSuchDataException::class);
 
-        $this->fail( 'Expected ezcGraphNoSuchDataException.' );
+        unset( $chart->data['income']->highlight[42] );
     }
 }
 ?>

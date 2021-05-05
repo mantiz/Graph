@@ -405,16 +405,9 @@ class ezcGraphDataSetAverageTest extends ezcGraphTestCase
         
         $chart->xAxis = new ezcGraphChartElementNumericAxis();
 
-        try
-        {
-            $chart->render( 500, 200, $filename );
-        }
-        catch ( ezcGraphDatasetAverageInvalidKeysException $e )
-        {
-            return true;
-        }
+        $this->expectException(ezcGraphDatasetAverageInvalidKeysException::class);
 
-        $this->fail( 'Expected ezcGraphDatasetAverageInvalidKeysException.' );
+        $chart->render( 500, 200, $filename );
     }
 
     public function testAverageDataSetIsset()

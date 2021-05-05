@@ -343,35 +343,21 @@ class ezcGraphOdometerChartTest extends ezcGraphTestCase
     {
         $chart = new ezcGraphOdometerChart();
 
-        try
-        {
-            $chart->data['sampleData'] = new ezcGraphArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 1, 'sample 5' => 120 ) );
-            $chart->data['moreData'] = new ezcGraphArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 1, 'sample 5' => 120 ) );
+        $this->expectException(ezcGraphTooManyDataSetsExceptions::class);
 
-            $chart->render( 500, 200 );
-        }
-        catch ( ezcGraphTooManyDataSetsExceptions $e )
-        {
-            return;
-        }
+        $chart->data['sampleData'] = new ezcGraphArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 1, 'sample 5' => 120 ) );
+        $chart->data['moreData'] = new ezcGraphArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 1, 'sample 5' => 120 ) );
 
-        $this->fail( 'Expected ezcGraphTooManyDataSetsExceptions.' );
+        $chart->render( 500, 200 );
     }
 
     public function testNoDatasets()
     {
         $chart = new ezcGraphOdometerChart();
 
-        try
-        {
-            $chart->render( 500, 200 );
-        }
-        catch ( ezcGraphNoDataException $e )
-        {
-            return;
-        }
+        $this->expectException(ezcGraphNoDataException::class);
 
-        $this->fail( 'Expected ezcGraphNoDataException.' );
+        $chart->render( 500, 200 );
     }
 
     public function testIncompatibleRenderer()
@@ -379,17 +365,10 @@ class ezcGraphOdometerChartTest extends ezcGraphTestCase
         $chart = new ezcGraphOdometerChart();
         $chart->data['sampleData'] = new ezcGraphArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 1, 'sample 5' => 120 ) );
 
-        try
-        {
-            $chart->renderer = new ezcGraphRenderer3d();
-            $chart->render( 500, 200 );
-        }
-        catch ( ezcBaseValueException $e )
-        {
-            return;
-        }
+        $this->expectException(ezcBaseValueException::class);
 
-        $this->fail( 'Expected ezcBaseValueException.' );
+        $chart->renderer = new ezcGraphRenderer3d();
+        $chart->render( 500, 200 );
     }
 
     public function testRenderCompleteOdometer()

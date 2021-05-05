@@ -761,13 +761,9 @@ class ezcGraphNumericAxisTest extends ezcTestCase
         $chart->yAxis->max = 2000;
         $chart->yAxis->majorStep = 300;
 
-        try
-        {
-            $chart->render( 500, 200 );
-            $this->fail( 'Expected ezcGraphInvalidStepSizeException.' );
-        }
-        catch ( ezcGraphInvalidStepSizeException $e )
-        { /* Expected */ }
+        $this->expectException(ezcGraphInvalidStepSizeException::class);
+
+        $chart->render( 500, 200 );
     }
 
     public function testMixedAutomagicAndManualScalingStepSizeFailure2()
@@ -779,13 +775,9 @@ class ezcGraphNumericAxisTest extends ezcTestCase
         $chart->yAxis->majorStep = 250;
         $chart->yAxis->minorStep = 100;
 
-        try
-        {
-            $chart->render( 500, 200 );
-            $this->fail( 'Expected ezcGraphInvalidStepSizeException.' );
-        }
-        catch ( ezcGraphInvalidStepSizeException $e )
-        { /* Expected */ }
+        $this->expectException(ezcGraphInvalidStepSizeException::class);
+
+        $chart->render( 500, 200 );
     }
 
     public function testPositionLeft()

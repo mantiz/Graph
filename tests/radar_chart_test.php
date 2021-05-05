@@ -503,16 +503,9 @@ class ezcGraphRadarChartTest extends ezcGraphTestCase
         $chart = new ezcGraphRadarChart();
         $chart->palette = new ezcGraphPaletteTango();
 
-        try
-        {
-            $chart->render( 500, 200, $filename );
-        }
-        catch ( ezcGraphNoDataException $e )
-        {
-            return true;
-        }
+        $this->expectException(ezcGraphNoDataException::class);
 
-        $this->fail( 'Expected ezcGraphNoDataException.' );
+        $chart->render( 500, 200, $filename );
     }
 
     public function testRadarMinorAxis()
@@ -583,16 +576,9 @@ class ezcGraphRadarChartTest extends ezcGraphTestCase
 
         $chart->data['sample'] = new ezcGraphArrayDataSet( $this->getRandomData( 6 ) );
 
-        try
-        {
-            $chart->renderer = new ezcGraphRenderer3d();
-        }
-        catch ( ezcBaseValueException $e )
-        {
-            return true;
-        }
+        $this->expectException(ezcBaseValueException::class);
 
-        $this->fail( 'Expected ezcBasePropertyValueException.' );
+        $chart->renderer = new ezcGraphRenderer3d();
     }
 
     public function testRadarMultiple()

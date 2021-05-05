@@ -232,17 +232,10 @@ class ezcGraphLogarithmicalAxisTest extends ezcGraphTestCase
         $chart = new ezcGraphLineChart();
         $chart->yAxis = new ezcGraphChartElementLogarithmicalAxis();
 
-        try
-        {
-            $chart->data['sample'] = new ezcGraphArrayDataSet( array( .003, 12, 43, 1023, .02, -1.5 ) );
-            $chart->render( 500, 300 );
-        }
-        catch ( ezcGraphOutOfLogithmicalBoundingsException $e )
-        {
-            return true;
-        }
+        $this->expectException(ezcGraphOutOfLogithmicalBoundingsException::class);
 
-        $this->fail( 'Expect ezcGraphOutOfLogithmicalBoundingsException.' );
+        $chart->data['sample'] = new ezcGraphArrayDataSet( array( .003, 12, 43, 1023, .02, -1.5 ) );
+        $chart->render( 500, 300 );
     }
 
     public function testAutomagicScalingValues()

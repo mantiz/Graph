@@ -105,16 +105,9 @@ class ezcGraphTransformationTest extends ezcTestCase
             array( 4, 5, 6 ),
         ) );
 
-        try
-        {
-            $a->multiply( $b );
-        }
-        catch ( ezcGraphMatrixInvalidDimensionsException $e )
-        {
-            return true;
-        }
+        $this->expectException(ezcGraphMatrixInvalidDimensionsException::class);
 
-        $this->fail( 'Expected ezcGraphMatrixInvalidDimensionsException.' );
+        $a->multiply( $b );
     }
 
     public function testTranslateCoordinate()

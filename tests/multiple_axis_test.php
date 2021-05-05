@@ -234,17 +234,10 @@ class ezcGraphMultipleAxisTest extends ezcGraphTestCase
         $chart->data['sampleData'] = new ezcGraphArrayDataSet( array( 'sample 1' => 234, 'sample 2' => -21, 'sample 3' => 324, 'sample 4' => 120, 'sample 5' => 1) );
         $chart->data['sampleData']->yAxis = $chart->additionalAxis['marker'];
         $chart->data['sampleData']->xAxis = $chart->additionalAxis['new base'];
-        
-        try
-        {
-            $chart->render( 400, 200 );
-        }
-        catch ( ezcGraphNoDataException $e )
-        {
-            return true;
-        }
 
-        $this->fail( 'Expected ezcGraphNoDataException.' );
+        $this->expectException(ezcGraphNoDataException::class);
+
+        $chart->render( 400, 200 );
     }
 
     public function testRenderNoLabelRendererFallBack()
